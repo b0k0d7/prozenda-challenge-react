@@ -1,10 +1,11 @@
 import './App.css'
+import DataFetcher from "./components/DataFetcher.jsx";
 
-function App() {
+const App = () => {
 
   return (
     <>
-
+      <DataFetcher />
     </>
   )
 }
