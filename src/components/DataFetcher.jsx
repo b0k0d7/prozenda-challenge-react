@@ -11,6 +11,7 @@ const DataFetcher = () => {
             try {
                 const api_endpoint = 'https://swapi.dev/api/people/';
                 const response = await axios.get(api_endpoint);
+                console.log('response', response.data.results);
                 dispatch({ type: 'setValue', value: response.data.results });
             } catch (error) {
                 console.error('Error fetching data:', error);
