@@ -1,5 +1,5 @@
 import './App.css'
-import { useState } from 'react';
+import {useState} from 'react';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -18,29 +18,61 @@ import Typography from '@mui/material/Typography';
 
 import DataFetcher from "./components/DataFetcher.jsx";
 import TopMenu from "./components/TopMenu.jsx";
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 
 const App = () => {
     const characters = useSelector((state) => state.characters);
-
+    const dispatch = useDispatch();
     const [inputValue, setInputValue] = useState('');
-    const [age, setAge] = useState('');
+    const [sort, setSort] = useState('');
 
     const handleSort = (event) => {
-        setAge(event.target.value);
+        setSort(event.target.value);
+        dispatch({type: 'sortCharacters', value: event.target.value});
     };
 
     const handleSearch = (event) => {
         setInputValue(event.target.value);
     };
 
+    const getImageUrl = (index) => {
+        if(index % 2 === 0) {
+            return '/img/mock-image-1.png'
+        } else{
+            return '/img/mock-image.png'
+        }
+    }
+
+    const getLoadedCharacters = () => {
+        return characters.filter((obj) => { return obj.show; }).length;
+    }
+
+    const getLoadingButtonState = () => {
+        return characters.filter((obj) => {
+            return obj.show;
+        }).length === characters.length;
+
+    }
+
+    const getSearchButtonState = () => {
+        return inputValue.length > 0
+    }
+    const loadMoreCharacters = () => {
+        dispatch({type: 'loadMoreCharacters'});
+    }
+
+    const searchCharacter = () => {
+
+    }
+
+
     return (
 
         <div className="app">
-            <DataFetcher />
+            <DataFetcher/>
 
-            <TopMenu />
+            <TopMenu/>
 
             <TextField
                 label="Your Input"
@@ -49,9 +81,11 @@ const App = () => {
                 onChange={handleSearch}
             />
 
-            <Button variant="contained">Search Character</Button>
+            <Button variant="contained" onClick={() => { searchCharacter() }} disabled={getSearchButtonState()}>Search Character</Button>
 
-            <p>Showing 5 results of {characters.length}</p>
+            {characters.length > 0 &&
+                <p>Showing {getLoadedCharacters()} results of {characters.length}</p>
+            }
 
 
             <FormControl fullWidth>
@@ -59,7 +93,7 @@ const App = () => {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={age}
+                    value={sort}
                     label="Age"
                     onChange={handleSort}
                 >
@@ -71,17 +105,16 @@ const App = () => {
             </FormControl>
 
 
-
             {characters.length === 0 ? (
-                <CircularProgress />
+                <CircularProgress/>
             ) : (
-                    <Grid container columns={4}>
-                    {characters.map((item) => (
-                        <Grid item xs={1}>
-                            <Card sx={{ maxWidth: 345 }}>
+                <Grid container columns={4}>
+                    {characters.filter((obj) => { return obj.show; }).map((item, index) => (
+                        <Grid item xs={1} key={item.name}>
+                            <Card sx={{maxWidth: 345}}>
                                 <CardMedia
-                                    sx={{ height: 140 }}
-                                    image="/img/mock-image.png"
+                                    sx={{height: 140}}
+                                    image={getImageUrl(index)}
                                     title="green iguana"
                                 />
                                 <CardContent>
@@ -96,10 +129,10 @@ const App = () => {
                             </Card>
                         </Grid>
                     ))}
-                    </Grid>
+                </Grid>
             )}
 
-            <Button variant="contained">Load More</Button>
+            <Button variant="contained" onClick={() => { loadMoreCharacters() }} disabled={getLoadingButtonState()}>Load More</Button>
         </div>
     )
 }
