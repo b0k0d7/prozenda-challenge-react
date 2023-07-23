@@ -1,6 +1,37 @@
 const initialState = {
     characters: [],
 };
+
+const sortByGenderMale = (a, b) => {
+    const genderOrder = { 'male': 1, 'female': 2, 'n/a': 3 };
+
+    const genderA = a.gender.toLowerCase();
+    const genderB = b.gender.toLowerCase();
+
+    if (genderOrder[genderA] < genderOrder[genderB]) {
+        return -1;
+    } else if (genderOrder[genderA] > genderOrder[genderB]) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+const sortByGenderFemale = (a, b) => {
+    const genderOrder = { 'female': 1, 'male': 2, 'n/a': 3 };
+
+    const genderA = a.gender.toLowerCase();
+    const genderB = b.gender.toLowerCase();
+
+    if (genderOrder[genderA] < genderOrder[genderB]) {
+        return -1;
+    } else if (genderOrder[genderA] > genderOrder[genderB]) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 const sortCharacters = (state, sortBy) => {
     let characters = state.characters;
     if(sortBy === 'a-z'){
@@ -10,9 +41,11 @@ const sortCharacters = (state, sortBy) => {
         characters.sort((a, b) => a.name.localeCompare(b.name)).reverse();
     }
     if(sortBy === 'male'){
-
+        characters.sort(sortByGenderMale)
     }
-
+    if(sortBy === 'female'){
+        characters.sort(sortByGenderFemale)
+    }
     return characters;
 }
 
