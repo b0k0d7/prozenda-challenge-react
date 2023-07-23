@@ -19,6 +19,7 @@ import Typography from '@mui/material/Typography';
 import DataFetcher from "./components/DataFetcher.jsx";
 import TopMenu from "./components/TopMenu.jsx";
 import {useDispatch, useSelector} from 'react-redux';
+import axios from "axios";
 
 
 const App = () => {
@@ -37,15 +38,17 @@ const App = () => {
     };
 
     const getImageUrl = (index) => {
-        if(index % 2 === 0) {
+        if (index % 2 === 0) {
             return '/img/mock-image-1.png'
-        } else{
+        } else {
             return '/img/mock-image.png'
         }
     }
 
     const getLoadedCharacters = () => {
-        return characters.filter((obj) => { return obj.show; }).length;
+        return characters.filter((obj) => {
+            return obj.show;
+        }).length;
     }
 
     const getLoadingButtonState = () => {
@@ -56,16 +59,26 @@ const App = () => {
     }
 
     const getSearchButtonState = () => {
-        return inputValue.length > 0
+        return inputValue.length === 0;
     }
     const loadMoreCharacters = () => {
         dispatch({type: 'loadMoreCharacters'});
     }
 
-    const searchCharacter = () => {
+    const searchCharacter = async () => {
+        try {
 
+            const api_endpoint = `https://swapi.dev/api/people/?search=${inputValue}`;
+            const response = await axios.get(api_endpoint);
+            let characters = response.data.results;
+            characters.forEach((e) => {
+                e.show = true;
+            })
+            dispatch({type: 'searchCharacter', value: response.data.results});
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
     }
-
 
     return (
 
@@ -81,7 +94,9 @@ const App = () => {
                 onChange={handleSearch}
             />
 
-            <Button variant="contained" onClick={() => { searchCharacter() }} disabled={getSearchButtonState()}>Search Character</Button>
+            <Button variant="contained" onClick={async () => {
+                await searchCharacter()
+            }} disabled={getSearchButtonState()}>Search Character</Button>
 
             {characters.length > 0 &&
                 <p>Showing {getLoadedCharacters()} results of {characters.length}</p>
@@ -109,7 +124,9 @@ const App = () => {
                 <CircularProgress/>
             ) : (
                 <Grid container columns={4}>
-                    {characters.filter((obj) => { return obj.show; }).map((item, index) => (
+                    {characters.filter((obj) => {
+                        return obj.show;
+                    }).map((item, index) => (
                         <Grid item xs={1} key={item.name}>
                             <Card sx={{maxWidth: 345}}>
                                 <CardMedia
@@ -122,8 +139,6 @@ const App = () => {
                                         {item.name}
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        {/*Lizards are a widespread group of squamate reptiles, with over 6,000*/}
-                                        {/*species, ranging across all continents except Antarctica*/}
                                     </Typography>
                                 </CardContent>
                             </Card>
@@ -132,7 +147,9 @@ const App = () => {
                 </Grid>
             )}
 
-            <Button variant="contained" onClick={() => { loadMoreCharacters() }} disabled={getLoadingButtonState()}>Load More</Button>
+            <Button variant="contained" onClick={() => {
+                loadMoreCharacters()
+            }} disabled={getLoadingButtonState()}>Load More</Button>
         </div>
     )
 }

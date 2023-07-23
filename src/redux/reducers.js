@@ -1,7 +1,6 @@
 const initialState = {
     characters: [],
 };
-
 const sortCharacters = (state, sortBy) => {
     let characters = state.characters;
     if(sortBy === 'a-z'){
@@ -26,7 +25,6 @@ const loadMoreCharacters = (state) => {
             count++;
         }
     })
-    console.log('ideer', characters);
     return [...characters];
 }
 
@@ -44,6 +42,11 @@ const rootReducer = (state = initialState, action) => {
             return {
                 characters: sortCharacters(state, action.value)
             };
+        case 'searchCharacter':
+            return {
+                characters: action.value
+            };
+
         default:
             return state;
     }

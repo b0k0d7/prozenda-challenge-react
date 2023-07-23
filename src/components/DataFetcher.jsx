@@ -9,19 +9,13 @@ const DataFetcher = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log('lefut')
                 const api_endpoint = 'https://swapi.dev/api/people/';
                 const response = await axios.get(api_endpoint);
-                let value = response.data.results;
-                // for(let i = 0; i < value.length; i++){
-                //     value[i].show = i < 4;
-                // }
-                // console.log('val', value);
-
-                value.forEach((e, index) => {
+                let characters = response.data.results;
+                characters.forEach((e, index) => {
                     e.show = index < 4;
                 })
-                dispatch({ type: 'setCharacters', value: value });
+                dispatch({ type: 'setCharacters', value: characters });
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
