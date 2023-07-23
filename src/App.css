@@ -1,0 +1,52 @@
+body  {
+    background-image: url("/img/background.jpg");
+    background-color: black;
+}
+
+@font-face {
+    font-display: swap;
+    font-family: star_jedi;
+    src: url('./assets/fonts/Starjedi.ttf');
+}
+
+.MuiTextField-root {
+    background: #58547a;
+}
+
+.app .app__search{
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    padding: 30px;
+}
+
+.app .app__search--box{
+    background-color: #2e2a49;
+    text-align: center;
+    padding: 50px;
+}
+
+.app .app__search #app__search--btn{
+    width: 33vw;
+}
+
+.app .app__search .app__search--break{
+    flex-basis: 100%;
+    height: 0;
+    margin-bottom: 20px;
+}
+
+.app .app__sort{
+    margin-bottom: 50px;
+}
+
+.app .app__sort #app__sort--btn{
+    width: 150px;
+}
+
+.app .app__characters{
+    margin-bottom: 50px;
+    text-align: center;
+}
