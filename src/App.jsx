@@ -1,4 +1,4 @@
-import './App.css'
+import './assets/css/App.css'
 import {useState} from 'react';
 
 import TextField from '@mui/material/TextField';
@@ -98,16 +98,13 @@ const App = () => {
 
                     />
 
-                    <div className="app__search--break" />
-                    <Button sx={{ background: '#58547a', color: 'yellow' }} variant="contained" onClick={async () => {
+                    <div className="app__search--break"/>
+                    <Button sx={{background: '#58547a', color: 'yellow'}} variant="contained" onClick={async () => {
                         await searchCharacter()
                     }} disabled={getSearchButtonState()}>Search Character</Button>
                 </div>
 
             </div>
-
-
-
 
 
             {characters.length === 0 ? (
@@ -140,11 +137,11 @@ const App = () => {
                     </div>
 
                     <div className="app__characters">
-                        <Grid container columns={4} sx={{ flexDirection: { xs: "column", md: "row"} }}>
+                        <Grid container columns={4} sx={{flexDirection: {xs: "column", md: "row"}}}>
                             {characters.filter((obj) => {
                                 return obj.show;
                             }).map((item, index) => (
-                                <Grid item xs={1} key={item.name} >
+                                <Grid item xs={1} key={item.name}>
                                     <Card sx={{maxWidth: 400, marginBottom: 3, background: '#2e2a49', color: 'yellow'}}>
                                         <CardMedia
                                             sx={{height: 400}}
@@ -152,7 +149,7 @@ const App = () => {
                                             title="green iguana"
                                         />
                                         <CardContent>
-                                            <Typography gutterBottom variant="h5" component="div" >
+                                            <Typography gutterBottom variant="h5" component="div">
                                                 {item.name}
                                             </Typography>
                                             <Typography variant="body2" color="text.secondary">
@@ -166,7 +163,7 @@ const App = () => {
                 </div>
             )}
 
-            <Button sx={{ background: '#58547a', color: 'yellow' }} fullWidth variant="contained" onClick={() => {
+            <Button sx={{background: '#58547a', color: 'yellow'}} fullWidth variant="contained" onClick={() => {
                 loadMoreCharacters()
             }} disabled={getLoadingButtonState()}>Load More</Button>
         </div>

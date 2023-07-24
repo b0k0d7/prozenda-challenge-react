@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import {useEffect} from 'react';
+import {useDispatch} from 'react-redux';
 import axios from 'axios';
 
 const DataFetcher = () => {
@@ -15,7 +15,7 @@ const DataFetcher = () => {
                 characters.forEach((e, index) => {
                     e.show = index < 4;
                 })
-                dispatch({ type: 'setCharacters', value: characters });
+                dispatch({type: 'setCharacters', value: characters});
             } catch (error) {
                 console.error('Error fetching data:', error);
             }

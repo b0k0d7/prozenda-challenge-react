@@ -10,7 +10,7 @@ const TopMenu = () => {
             background: '#171427',
         }}>
             <Container maxWidth="xl" sx={{paddingLeft: 0, paddingRight: 0}}>
-                <Toolbar disableGutters >
+                <Toolbar disableGutters>
                     <Typography
                         variant="h6"
                         noWrap
@@ -18,7 +18,7 @@ const TopMenu = () => {
                         href="/"
                         sx={{
                             mr: 2,
-                            display: { xs: 'none', md: 'flex' },
+                            display: {xs: 'none', md: 'flex'},
                             fontFamily: 'star_jedi',
                             fontWeight: 700,
                             letterSpacing: '.3rem',
@@ -35,7 +35,7 @@ const TopMenu = () => {
                         href=""
                         sx={{
                             mr: 2,
-                            display: { xs: 'flex', md: 'none' },
+                            display: {xs: 'flex', md: 'none'},
                             flexGrow: 1,
                             fontFamily: 'star_jedi',
                             fontWeight: 700,

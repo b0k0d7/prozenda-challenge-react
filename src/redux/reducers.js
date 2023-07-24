@@ -3,7 +3,7 @@ const initialState = {
 };
 
 const sortByGenderMale = (a, b) => {
-    const genderOrder = { 'male': 1, 'female': 2, 'n/a': 3 };
+    const genderOrder = {'male': 1, 'female': 2, 'n/a': 3};
 
     const genderA = a.gender.toLowerCase();
     const genderB = b.gender.toLowerCase();
@@ -18,7 +18,7 @@ const sortByGenderMale = (a, b) => {
 }
 
 const sortByGenderFemale = (a, b) => {
-    const genderOrder = { 'female': 1, 'male': 2, 'n/a': 3 };
+    const genderOrder = {'female': 1, 'male': 2, 'n/a': 3};
 
     const genderA = a.gender.toLowerCase();
     const genderB = b.gender.toLowerCase();
@@ -34,16 +34,16 @@ const sortByGenderFemale = (a, b) => {
 
 const sortCharacters = (state, sortBy) => {
     let characters = state.characters;
-    if(sortBy === 'a-z'){
+    if (sortBy === 'a-z') {
         characters.sort((a, b) => a.name.localeCompare(b.name))
     }
-    if(sortBy === 'z-a'){
+    if (sortBy === 'z-a') {
         characters.sort((a, b) => a.name.localeCompare(b.name)).reverse();
     }
-    if(sortBy === 'male'){
+    if (sortBy === 'male') {
         characters.sort(sortByGenderMale)
     }
-    if(sortBy === 'female'){
+    if (sortBy === 'female') {
         characters.sort(sortByGenderFemale)
     }
     return characters;
@@ -53,7 +53,7 @@ const loadMoreCharacters = (state) => {
     let characters = state.characters;
     let count = 0;
     characters.forEach(e => {
-        if(count < 4 && !e.show){
+        if (count < 4 && !e.show) {
             e.show = true;
             count++;
         }
