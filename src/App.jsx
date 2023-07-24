@@ -92,13 +92,14 @@ const App = () => {
                     <TextField
                         id='app__search--btn'
                         label="Search Character"
-                        variant="filled"
+                        variant="outlined"
                         value={inputValue}
                         onChange={handleSearch}
+
                     />
 
                     <div className="app__search--break" />
-                    <Button variant="contained" onClick={async () => {
+                    <Button sx={{ background: '#58547a', color: 'yellow' }} variant="contained" onClick={async () => {
                         await searchCharacter()
                     }} disabled={getSearchButtonState()}>Search Character</Button>
                 </div>
@@ -106,57 +107,66 @@ const App = () => {
             </div>
 
 
-            <div className="app__sort">
-                {characters.length > 0 &&
-                    <p>Showing {getLoadedCharacters()} results of {characters.length}</p>
-                }
 
-
-                <FormControl id="app__sort--btn">
-                    <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
-                    <Select
-                        value={sort}
-                        onChange={handleSort}
-                    >
-                        <MenuItem value={'a-z'}>A-Z</MenuItem>
-                        <MenuItem value={'z-a'}>Z-A</MenuItem>
-                        <MenuItem value={'male'}>Male</MenuItem>
-                        <MenuItem value={'female'}>Female</MenuItem>
-                    </Select>
-                </FormControl>
-            </div>
 
 
             {characters.length === 0 ? (
-                <CircularProgress/>
+                <div className="app__loading">
+                    <CircularProgress
+                        sx={{color: 'yellow'}}
+                    />
+                </div>
             ) : (
-                <div className="app__characters">
-                    <Grid container columns={4}>
-                        {characters.filter((obj) => {
-                            return obj.show;
-                        }).map((item, index) => (
-                            <Grid item xs={1} key={item.name}>
-                                <Card sx={{maxWidth: 400, marginBottom: 10, background: '#2e2a49', color: 'yellow'}}>
-                                    <CardMedia
-                                        sx={{height: 400}}
-                                        image={getImageUrl(index)}
-                                        title="green iguana"
-                                    />
-                                    <CardContent>
-                                        <Typography gutterBottom variant="h5" component="div" >
-                                            {item.name}
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        ))}
-                    </Grid>
+                <div>
+
+                    <div className="app__sort">
+                        {characters.length > 0 &&
+                            <p>Showing {getLoadedCharacters()} results of {characters.length}</p>
+                        }
+
+
+                        <FormControl id="app__sort--btn">
+                            <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
+                            <Select
+                                value={sort}
+                                onChange={handleSort}
+                            >
+                                <MenuItem value={'a-z'}>A-Z</MenuItem>
+                                <MenuItem value={'z-a'}>Z-A</MenuItem>
+                                <MenuItem value={'male'}>Male</MenuItem>
+                                <MenuItem value={'female'}>Female</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
+
+                    <div className="app__characters">
+                        <Grid container columns={4} sx={{ flexDirection: { xs: "column", md: "row"} }}>
+                            {characters.filter((obj) => {
+                                return obj.show;
+                            }).map((item, index) => (
+                                <Grid item xs={1} key={item.name} >
+                                    <Card sx={{maxWidth: 400, marginBottom: 3, background: '#2e2a49', color: 'yellow'}}>
+                                        <CardMedia
+                                            sx={{height: 400}}
+                                            image={getImageUrl(index)}
+                                            title="green iguana"
+                                        />
+                                        <CardContent>
+                                            <Typography gutterBottom variant="h5" component="div" >
+                                                {item.name}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            ))}
+                        </Grid>
+                    </div>
                 </div>
             )}
 
-            <Button fullWidth variant="contained" onClick={() => {
+            <Button sx={{ background: '#58547a', color: 'yellow' }} fullWidth variant="contained" onClick={() => {
                 loadMoreCharacters()
             }} disabled={getLoadingButtonState()}>Load More</Button>
         </div>

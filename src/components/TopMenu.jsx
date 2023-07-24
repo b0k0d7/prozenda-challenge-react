@@ -6,10 +6,10 @@ import Container from '@mui/material/Container';
 const TopMenu = () => {
 
     return (
-        <AppBar position="static" sx={{
+        <AppBar className="app__menu" position="static" sx={{
             background: '#171427',
         }}>
-            <Container maxWidth="xl">
+            <Container maxWidth="xl" sx={{paddingLeft: 0, paddingRight: 0}}>
                 <Toolbar disableGutters >
                     <Typography
                         variant="h6"
@@ -37,10 +37,11 @@ const TopMenu = () => {
                             mr: 2,
                             display: { xs: 'flex', md: 'none' },
                             flexGrow: 1,
-                            fontFamily: 'monospace',
+                            fontFamily: 'star_jedi',
                             fontWeight: 700,
+                            fontSize: '0.7rem',
                             letterSpacing: '.3rem',
-                            color: 'inherit',
+                            color: 'yellow',
                             textDecoration: 'none',
                         }}
                     >
